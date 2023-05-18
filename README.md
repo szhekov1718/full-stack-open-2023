@@ -4,11 +4,11 @@ Learn React, Redux, Node.js, MongoDB, GraphQL and TypeScript in one go!
 
 This course will introduce you to modern JavaScript-based web development. The main focus is on building **single page applications** with **React** that use REST APIs built with **Node.js.**
 
-This repository containts my solutions to exercises for the course.
+This repository contains my solutions to the exercises in the course.
 
-## Contents
+## Course Contents
 
-### [Part 0: Fundamentals of Web apps](https://fullstackopen.com/en/part0)
+### [Part 0: Fundamentals of Web Applications](https://fullstackopen.com/en/part0)
 + General info
 + Fundamentals of Web apps
 ### [Part 1: Introduction to React](https://fullstackopen.com/en/part1)
@@ -16,15 +16,15 @@ This repository containts my solutions to exercises for the course.
 + Javascript
 + Component state, event handlers
 + A more complex state, debugging React apps
-### [Part 2: Communicating with server](https://fullstackopen.com/en/part2)
+### [Part 2: Communicating with the server](https://fullstackopen.com/en/part2)
 + Rendering a collection, modules
 + Forms
-+ Getting data from server
++ Getting data from a server
 + Altering data in server
 + Adding styles to React app
 ### [Part 3: Programming a server with NodeJS and Express](https://fullstackopen.com/en/part3)
 + Node.js and Express
-+ Deploying app to the Internet
++ Deploying the application
 + Saving data to MongoDB
 + Validation and ESLint
 ### [Part 4: Testing Express servers, user administration](https://fullstackopen.com/en/part4)
