@@ -1,0 +1,96 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "content": "HTML is easy",
+      "important": false
+    },
+    {
+      "id": 2,
+      "content": "Browser can execute only JavaScript",
+      "important": false
+    },
+    {
+      "id": 3,
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": true
+    },
+    {
+      "content": "Ivan",
+      "important": false,
+      "id": 4
+    },
+    {
+      "content": "Ivan",
+      "important": false,
+      "id": 5
+    },
+    {
+      "content": "asdasd",
+      "important": false,
+      "id": 6
+    },
+    {
+      "content": "aaa",
+      "important": false,
+      "id": 7
+    },
+    {
+      "content": "testova",
+      "important": false,
+      "id": 8
+    },
+    {
+      "content": "asdads",
+      "important": true,
+      "id": 9
+    },
+    {
+      "content": "mimi",
+      "important": true,
+      "id": 10
+    },
+    {
+      "content": "karkakrakar",
+      "important": false,
+      "id": 11
+    },
+    {
+      "content": "iztrita",
+      "important": true,
+      "id": 12
+    },
+    {
+      "content": "iztrita",
+      "important": false,
+      "id": 13
+    },
+    {
+      "content": "",
+      "important": false,
+      "id": 14
+    }
+  ],
+  "people": [
+    {
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": 1
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "id": 2
+    },
+    {
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "id": 3
+    },
+    {
+      "name": "Mary Poppendieck",
+      "number": "39-23-6423122",
+      "id": 4
+    }
+  ]
+}

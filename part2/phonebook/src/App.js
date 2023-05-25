@@ -1,29 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Notification from "./components/Notification";
+import People from "./components/People";
+import Person from "./components/Person";
+import Search from "./components/Search";
+import PersonForm from "./components/PersonForm";
 
 const App = () => {
-  const [persons, setPersons] = useState([]) 
-  const [newName, setNewName] = useState('')
-  const [search, setSearch] = useState('')
+  const [persons, setPersons] = useState([]);
+  const [newName, setNewName] = useState("");
+  const [search, setSearch] = useState("");
 
-  const handleFilter = (event) => setSearch(event.target.value)
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/people")
+      .then((response) => response.data)
+      .then((response) => setPersons(response));
+  }, []);
+
+  const handleFilter = (event) => setSearch(event.target.value);
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const newPerson = {
-      name: newName
+      name: newName,
+    };
+
+    if (persons.includes(newName)) {
+      window.alert(`${newName} is already added to phonebook`);
     }
 
-    if (persons.includes(newName)){
-      window.alert(`${newName} is already added to phonebook`)
-    }
-
-    setPersons(persons.concat(newPerson))
-    setNewName('')
-  }
+    setPersons(persons.concat(newPerson));
+    setNewName("");
+  };
 
   const addName = (event) => {
-      setNewName(event.target.value)
-    }
+    setNewName(event.target.value);
+  };
 
   return (
     <div>
@@ -37,11 +50,11 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(person => 
+      {persons.map((person) => (
         <div>{person.name}</div>
-        )}
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

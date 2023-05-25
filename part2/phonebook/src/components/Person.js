@@ -1,27 +1,8 @@
+const Person = ({ person, deletePerson }) => (
+  <p>
+    {person.name} {person.number}{" "}
+    <button onClick={() => deletePerson(person.id, person.name)}>delete</button>
+  </p>
+);
 
-const Person = ({handleSubmit, handleChange}) => {
-    return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <div>
-    
-                        <input
-                            placeholder="name"
-                            name="name"
-                            onChange={(e) => {
-                                handleChange(e);
-                            }}
-                        />
-    
-                        <input
-                            placeholder="number"
-                            name="number"
-                            onChange={(e) => {
-                                handleChange(e);
-                            }}
-                        />
-    
-                        <button type="submit">add</button>			
-            </div>
-        </form>
-      )
-}
+export default Person;
