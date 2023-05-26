@@ -73,11 +73,6 @@
   ],
   "people": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": 1
-    },
-    {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": 2
@@ -88,9 +83,49 @@
       "id": 3
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": 4
+      "name": "fsdfsdsfd",
+      "number": "3443",
+      "id": 7
+    },
+    {
+      "name": "ddd",
+      "number": "ddd",
+      "id": 8
+    },
+    {
+      "name": "dfdf",
+      "number": "123123",
+      "id": 11
+    },
+    {
+      "name": "asdasd",
+      "number": "12312",
+      "id": 12
+    },
+    {
+      "name": "Миро",
+      "number": "55",
+      "id": 14
+    },
+    {
+      "name": "sdf",
+      "number": "234",
+      "id": 15
+    },
+    {
+      "name": "Spas",
+      "number": "4444",
+      "id": 16
+    },
+    {
+      "name": "ivo",
+      "number": "666",
+      "id": 17
+    },
+    {
+      "name": "ivodd",
+      "number": "44",
+      "id": 18
     }
   ]
 }
