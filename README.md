@@ -2,7 +2,9 @@
 
 Learn React, Redux, Node.js, MongoDB, GraphQL and TypeScript in one go! 
 
-This course will introduce you to modern JavaScript-based web development. The main focus is on building **single page applications** with **React** that use REST APIs built with **Node.js.**
+The main focus of the course is on building **single page applications** with **React** that use REST APIs built with **Node.js.**
+
+The course contains **14 parts** - one part corresponds loosely to **one week** (averaging **15-20 hours**) of studying => TOTAL: **~240 hours**
 
 This repository contains my solutions to the exercises in the course.
 
