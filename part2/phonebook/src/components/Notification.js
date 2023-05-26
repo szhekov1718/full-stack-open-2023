@@ -1,11 +1,11 @@
+import '../index.css'
+
 const Notification = ({ message, type }) => {
   if (!message) {
     return null;
   }
 
-  const className = type === "error" ? "error" : "success";
-
-  return <div className={className}>{message}</div>;
+  return <div className={type}>{message}</div>;
 };
 
 export default Notification;

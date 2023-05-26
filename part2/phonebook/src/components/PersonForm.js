@@ -7,20 +7,22 @@ const PersonForm = ({
 }) => (
   <form onSubmit={addPerson}>
     <div>
-      name:{" "}
+      Name:{" "}
       <input
+        placeholder="name"
         value={newName}
         onChange={({ target }) => setNewName(target.value)}
       />
     </div>
     <div>
-      number:{" "}
+      Number:{" "}
       <input
+        placeholder="number"
         value={newNumber}
         onChange={({ target }) => setNewNumber(target.value)}
       />
     </div>
-    <button type="submit">add</button>
+    <button type="submit">Add</button>
   </form>
 );
 

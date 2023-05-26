@@ -4,8 +4,14 @@ const People = ({ filter, persons, deletePerson }) => {
   const personsToShow =
     filter === ""
       ? persons
-      : persons.filter((person) =>
-          person.name.toLowerCase().includes(filter.toLowerCase())
+      : persons.filter(
+          (person) =>
+            person.name
+              .toLowerCase()
+              .includes(filter.target.value.toLowerCase()) ||
+            person.number
+              .toLowerCase()
+              .includes(filter.target.value.toLowerCase())
         );
 
   return (
