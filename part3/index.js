@@ -2,7 +2,9 @@ const express = require("express");
 const app = express();
 
 const morgan = require("morgan");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 
@@ -38,6 +40,23 @@ app.get("/", (request, response) => {
 app.get("/api/persons", (request, response) => {
   response.json(persons);
 });
+
+const notes = [
+    {
+        "id": 1,
+        "content": "HTML is easy",
+        "important": false
+      },
+      {
+        "id": 2,
+        "content": "Browser can execute only JavaScript",
+        "important": false
+      }
+]
+
+app.get("/api/notes", (request, response) => {
+    response.json(notes);
+  });
 
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
@@ -103,7 +122,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint);
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})
