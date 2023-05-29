@@ -7,6 +7,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(express.static("build"));
 
 morgan.token("body", (request) => JSON.stringify(request.body));
 
@@ -42,21 +43,21 @@ app.get("/api/persons", (request, response) => {
 });
 
 const notes = [
-    {
-        "id": 1,
-        "content": "HTML is easy",
-        "important": false
-      },
-      {
-        "id": 2,
-        "content": "Browser can execute only JavaScript",
-        "important": false
-      }
-]
+  {
+    id: 1,
+    content: "HTML is easy",
+    important: false,
+  },
+  {
+    id: 2,
+    content: "Browser can execute only JavaScript",
+    important: false,
+  },
+];
 
 app.get("/api/notes", (request, response) => {
-    response.json(notes);
-  });
+  response.json(notes);
+});
 
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
@@ -122,7 +123,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint);
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
