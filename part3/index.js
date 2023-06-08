@@ -59,6 +59,12 @@ app.get("/api/notes", (request, response) => {
   response.json(notes);
 });
 
+app.get("/api/notes/:id", (request, response) => {
+  const note = notes.filter((note) => note.id === Number(request.params.id));
+
+  response.json(note);
+});
+
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
   person = persons.filter((person) => person.id !== id);
@@ -113,7 +119,7 @@ app.post("/api/persons", (request, response) => {
 
 app.get("/info", (request, response) => {
   response.send(
-    `<div> Phonebook has info for ${persons.length} people. <p>${request} <p><div>`
+    `<div> Phonebook has info for ${persons.length} people. <p>${request.body} <p><div>`
   );
 });
 
