@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3002/notes";
+const baseUrl = '/api/notes'
 
 const getAll = () => axios.get(baseUrl).then((response) => response.data);
 
