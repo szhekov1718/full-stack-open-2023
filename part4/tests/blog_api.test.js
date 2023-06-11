@@ -70,7 +70,7 @@ describe("blogs GET tests", () => {
         title: "TESTING",
         author: "Spas Kanov",
         url: "http://www.cs.utexas.eduranscriptions/EWD08xx/EWD808.html",
-        likes: 18,
+        likes: 18, 
       };
 
       await api
