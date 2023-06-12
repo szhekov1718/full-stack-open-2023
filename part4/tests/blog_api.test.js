@@ -9,14 +9,9 @@ const Blog = require("../models/blog");
 beforeEach(async () => {
   await Blog.deleteMany({});
 
-  let blogObject = new Blog(helper.initialBlogs[0]);
-  await blogObject.save();
-
-  blogObject = new Blog(helper.initialBlogs[1]);
-  await blogObject.save();
-
-  blogObject = new Blog(helper.initialBlogs[2]);
-  await blogObject.save();
+  const blogs = helper.initialBlogs.map((blog) => new Blog(blog)); // create blogs objects
+  const promiseArray = blogs.map((blog) => blog.save()); // create array of promises - each promise is for blog.save
+  await Promise.all(promiseArray); // transform to single Promise object and wait for it to complete
 });
 
 describe("blogs GET tests", () => {
@@ -26,87 +21,100 @@ describe("blogs GET tests", () => {
     expect(response.body).toHaveLength(helper.initialBlogs.length);
   });
 
-  test("the first blog is by Michael Chan", async () => {
-    const response = await api.get("/blogs");
-
-    expect(response.body[0].author).toBe("Michael Chan");
-  });
-
   test("a specific blog is withing the returned blogs", async () => {
     const response = await api.get("/blogs");
-
     const titles = response.body.map((blog) => blog.title);
 
     expect(titles).toContain("Canonical string reduction");
   });
 
-  describe("blogs POST tests", () => {
-    test("a new valid blog is added", async () => {
-      const newBlog = {
-        title: "TESTING",
-        author: "Spas Kanov",
-        url: "http://www.cs.utexas.eduranscriptions/EWD08xx/EWD808.html",
-        likes: 18,
-      };
+  test("blogs are returned as json", async () => {
+    await api
+      .get("/blogs")
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+  });
+});
 
-      await api
-        .post("/blogs")
-        .send(newBlog)
-        .expect(201)
-        .expect("Content-Type", /application\/json/);
+describe("blogs POST tests", () => {
+  test("a new valid blog is added", async () => {
+    const newBlog = {
+      title: "TESTING",
+      author: "Spas Kanov",
+      url: "http://www.cs.utexas.eduranscriptions/EWD08xx/EWD808.html",
+      likes: 18,
+    };
 
-      const blogsInDb = await helper.blogsInDb();
-      expect(blogsInDb).toHaveLength(helper.initialBlogs.length + 1);
+    await api
+      .post("/blogs")
+      .send(newBlog)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
 
-      const authors = blogsInDb.map((blog) => blog.author);
-      expect(authors).toContain("Spas Kanov");
-    });
+    const blogsInDb = await helper.blogsInDb();
+    expect(blogsInDb).toHaveLength(helper.initialBlogs.length + 1);
 
-    test("blog without author is not added", async () => {
-      const newBlog = {
-        title: "no author test",
-        url: "http://www.cs.utexas.eduranscriptions/EWD08xx/EWD808.html",
-        likes: 12,
-      };
-
-      await api.post("/blogs").send(newBlog).expect(400);
-
-      const response = await api.get("/blogs");
-
-      expect(response.body).toHaveLength(helper.initialBlogs.length);
-    });
+    const authors = blogsInDb.map((blog) => blog.author);
+    expect(authors).toContain("Spas Kanov");
   });
 
-  describe("fetching blogs and deleting blogs", () => {
-    test("view a specific blog", async () => {
-      const blogsAtStart = await helper.blogsInDb();
-      const blogToView = blogsAtStart[0];
+  test("fails POST request with status code 400 if data invalid", async () => {
+    const newBlog = {
+      url: "http://www.cs.utexas.eduranscriptions/EWD08xx/EWD808.html",
+      likes: 12,
+    };
 
-      const resultBlog = await api
-        .get(`/blogs/${blogToView.id}`)
-        .expect(200)
-        .expect("Content-Type", /application\/json/);
+    await api.post("/blogs").send(newBlog).expect(400);
 
-      expect(resultBlog.body).toEqual(blogToView);
-    });
+    const response = await api.get("/blogs");
 
-    test("a blog can be deleted", async () => {
-      const blogsAtStart = await helper.blogsInDb();
-      const blogToDelete = blogsAtStart[0];
+    expect(response.body).toHaveLength(helper.initialBlogs.length);
+  });
+});
 
-      await api.delete(`/blogs/${blogToDelete.id}`).expect(204);
+describe("finding a specific blog", () => {
+  test("view a specific blog", async () => {
+    const blogsAtStart = await helper.blogsInDb();
+    const blogToView = blogsAtStart[0];
 
-      const blogsAtEnd = await helper.blogsInDb();
+    const resultBlog = await api
+      .get(`/blogs/${blogToView.id}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
 
-      expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1);
-
-      const authors = blogsAtEnd.map((blog) => blog.author);
-
-      expect(authors).not.toContain(blogToDelete.content);
-    });
+    expect(resultBlog.body).toEqual(blogToView);
   });
 
-  afterAll(async () => {
-    await mongoose.connection.close();
+  test("fails with statuscode 404 if blog does not exist", async () => {
+    const validNonexistingId = await helper.nonExistingId();
+
+    await api.get(`/blogs/${validNonexistingId}`).expect(404);
   });
+
+  test("fails with statuscode 400 if id is invalid", async () => {
+    const invalidId = "5a3d5da59070081a82a3445";
+
+    await api.get(`/blogs/${invalidId}`).expect(400);
+  });
+});
+
+describe("deleting a blog", () => {
+  test("a blog can be deleted with success status code 204", async () => {
+    const blogsAtStart = await helper.blogsInDb();
+    const blogToDelete = blogsAtStart[0];
+
+    await api.delete(`/blogs/${blogToDelete.id}`).expect(204);
+
+    const blogsAtEnd = await helper.blogsInDb();
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1);
+
+    const authors = blogsAtEnd.map((blog) => blog.author);
+
+    expect(authors).not.toContain(blogToDelete.content);
+  });
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
 });
